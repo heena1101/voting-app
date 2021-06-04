@@ -1,0 +1,118 @@
+{% extends "./base.html" %}
+
+{% block style %}
+<style>
+    body {
+        overflow-y: scroll;
+    }
+
+
+
+    .candidate-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 10px;
+    }
+
+    .candidate {
+        display: inline-block;
+        padding: 20px;
+        margin: 10px;
+        border: 2px dashed black;
+        border-radius: 20px;
+    }
+
+    .top-container {
+
+        background-color: rgb(255, 196, 0);
+        padding: 40px;
+        height: auto;
+        width: 100%;
+        border-bottom: 1px solid black;
+
+    }
+
+    .top-container span {
+        display: inline-block;
+        font-size: 70px;
+        font-weight: 400;
+        font-family: Georgia;
+        color: #080808;
+        padding-bottom: 80px;
+    }
+
+    .vote {
+        display: inline-block;
+        background-color: white;
+        width: 40px;
+        padding: 10px;
+        color: black;
+        border-radius: 50px;
+        height: 40px;
+    }
+
+    .background {
+        display: none;
+    }
+
+    .last-container {
+        /* background-color: rgb(255, 230, 0); */
+        text-align: center;
+    }
+
+    .last-container__title {
+        font-family: Georgia;
+        font-size: 35px;
+        margin: 10px;
+    }
+
+    hr {
+        width: 500px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .logo {
+        z-index: 0;
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        right: 0;
+        top: 80px;
+        text-align: center;
+        width: 300px;
+
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<img class="logo" src="https://www.vvitguntur.com/favicon.ico" alt="">
+
+<div class="top-container">
+    <span>Innovation Distinguishes between <br> a leader and a follower</span>
+
+
+</div>
+
+
+<div class="last-container">
+    <div class="last-container__title">Top Contenders</div>
+    <hr>
+    <div class="candidate">
+        <img src="{{topone.choice_image.url}}" class="candidate-image" alt="">
+        <button class="btn btn-primary" href="#">{{topone.choice_text|title}}
+            <span class="vote">{{topone.votes}}</span></button>
+    </div>
+
+    <div class="candidate">
+        <img src="{{secondone.choice_image.url}}" class="candidate-image" alt="">
+
+        <button class="btn btn-primary" href="#">{{secondone.choice_text|title}}
+            <span class="vote">{{secondone.votes}}</span></button>
+    </div>
+
+</div>
+{% endblock %}

@@ -3,7 +3,8 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns=[
-    path('',views.index,name="index"),
+    path('', views.landing, name="landing"),
+    path('index',views.index,name="index"),
     path('selected/<int:choice_id>',views.selected,name="selected"),
     path('login',views.login_page,name='login_page'),
     path('logout',views.logout_user,name='logout'),

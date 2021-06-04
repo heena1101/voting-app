@@ -5,7 +5,13 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 
-# Create your views here.
+def landing(request):
+    q_object = Question.objects.all()[0]
+    choices = q_object.choices.all().order_by('-votes')
+    top_one = choices[0]
+    second_one = choices[1]
+    return render(request, "landing_page.html", {'topone': top_one, 'secondone': second_one})
+
 def index(request):
     if not request.user.is_authenticated:
         return redirect(reverse('login_page'))
@@ -23,12 +29,12 @@ def selected(request,choice_id):
     current_user=request.user
     for i in voted_list:
         if i.id == current_user.id:
-            return HttpResponse('You are already voted')
+            return HttpResponse('<h1>You have already voted</h1>')
     selected_choice.votes=selected_choice.votes+1
     selected_choice.save()
     question_object.voted_users.add(current_user)
     question_object.save()
-    return HttpResponse('you selected '+ selected_choice.choice_text +' '+str(selected_choice.votes)) 
+    return HttpResponse('<h1>You selected '+ selected_choice.choice_text +" Thanks for Voting!</h1>") 
 
 def login_page(request):
     if request.method=='GET':
@@ -45,7 +51,7 @@ def login_page(request):
 
 def logout_user(request):
     logout(request)
-    return redirect(reverse('login_page'))
+    return redirect(reverse('landing'))
 
 def signup(request):
     if request.method=='GET':

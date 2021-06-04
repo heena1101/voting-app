@@ -1,20 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voting</title>
-</head>
-<body>
-    {{request.user.username}} <a href="{% url 'logout'%}">Logout</a>
+{% extends './base.html' %}
+
+{% block style %}
+<style>
+    body {
+        height: 100vh;
+        overflow-y: scroll;
+        background-color: #ffc252;
+        /* background-image: linear-gradient(to bottom, #fffbd5, #d44562); */
+    }
+
+    .candidate-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 10px;
+    }
+
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+        /* background-color: white; */
+        padding: 20px;
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    .background {
+        display: none;
+    }
+
+    .candidate {
+        display: inline-block;
+        padding: 20px;
+        margin: 10px;
+        border: 2px dashed black;
+        border-radius: 20px;
+    }
+
+    .question {
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 800;
+    }
+
+    .vote {
+        display: inline-block;
+        background-color: white;
+        width: 40px;
+        padding: 10px;
+        color: black;
+        border-radius: 50px;
+        height: 40px;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<!-- {{request.user.username}} <a href="{% url 'logout'%}">Logout</a> -->
+<div class="container">
     {% for question in questions %}
-    <h1>{{question.title}}</h1>
-    <!-- <h2>{{question.choices.all}}</h2> -->
+    <h1 class="question">{{question.title}}</h1>
     {% for choice in question.choices.all%}
-    <img src="{{choice.choice_image.url}}" alt="">
-    <a href="{% url 'selected' choice.id %}">{{choice.choice_text}}</a>
+    <div class="candidate">
+        <img class="candidate-image" src="{{choice.choice_image.url}}" alt="">
+        <br>
+        <a class="btn btn-primary" href="{% url 'selected' choice.id %}">{{choice.choice_text|title}}
+            <span class="vote">{{choice.votes}}</span></a>
+    </div>
     {% endfor %}
     {% endfor %}
-</body>
-</html>
+</div>
+{% endblock %}
